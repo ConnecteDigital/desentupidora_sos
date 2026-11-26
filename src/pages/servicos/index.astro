@@ -1,4 +1,5 @@
 ---
+import HeroBg from '../../components/HeroBg.astro';
 import { destaque } from '../../data/texto';
 import Base from '../../layouts/Base.astro';
 import CtaButtons from '../../components/CtaButtons.astro';
@@ -19,8 +20,9 @@ const crumbs = [
   description="Desentupimento de pia, ralo, vaso sanitário, cano, esgoto, coluna de prédio e rede pluvial, limpeza de caixa de gordura e hidrojateamento. 24 horas."
   schema={[serviceSchema({ nome: 'Serviços de desentupimento', descricao: site.description }), breadcrumbSchema(crumbs)]}
 >
-  <section class="hero page-hero">
-    <div class="container">
+  <section class="hero page-hero has-bg">
+    <HeroBg />
+    <div class="container hero-center">
       <span class="eyebrow">{marca.horario}</span>
       <h1 set:html={destaque(`Serviços de desentupimento`)} />
       <p class="hero-lead">Trabalhamos só com desentupimento, em casas, apartamentos, condomínios, lojas, restaurantes e empresas. <strong>{marca.chegada}.</strong></p>

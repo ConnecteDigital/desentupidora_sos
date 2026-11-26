@@ -1,4 +1,5 @@
 ---
+import HeroBg from '../../components/HeroBg.astro';
 import { destaque } from '../../data/texto';
 // Serviço geral: sem telefone fixo, com seletor de cidade.
 import Base from '../../layouts/Base.astro';
@@ -33,8 +34,9 @@ const outros = servicos.filter((s) => s.slug !== servico.slug);
   description={`${servico.nome} 24 horas. ${servico.resumo} Chegamos em 20 minutos. Escolha sua cidade e fale com a equipe.`}
   schema={[servicoSchema(servico), faqSchema(servico.faq), breadcrumbSchema(crumbs)]}
 >
-  <section class="hero page-hero">
-    <div class="container">
+  <section class="hero page-hero has-bg">
+    <HeroBg />
+    <div class="container hero-center">
       <span class="eyebrow">{marca.horario} · {marca.emergencia}</span>
       <h1 set:html={destaque(`${servico.nome} 24 horas`)} />
       <p class="hero-lead">{servico.resumo} <strong>{marca.chegada}.</strong></p>

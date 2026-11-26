@@ -1,4 +1,5 @@
 ---
+import HeroBg from '../../components/HeroBg.astro';
 import Base from '../../layouts/Base.astro';
 import CtaButtons from '../../components/CtaButtons.astro';
 import CtaBand from '../../components/CtaBand.astro';
@@ -44,8 +45,9 @@ const article = {
   ogType="article"
   schema={[article, breadcrumbSchema(crumbs)]}
 >
-  <section class="hero page-hero">
-    <div class="container article">
+  <section class="hero page-hero has-bg">
+    <HeroBg />
+    <div class="container hero-center">
       <h1 style="text-transform:none">{post.data.titulo}</h1>
       <p class="hero-lead">{post.data.descricao}</p>
     </div>

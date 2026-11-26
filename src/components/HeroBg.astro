@@ -1,0 +1,8 @@
+---
+// Foto de fundo do topo (src/assets/fotos/hero.*). Sem o arquivo, não renderiza nada.
+import { Image } from 'astro:assets';
+import { foto } from '../data/fotos';
+const img = foto('hero');
+---
+
+{img && <Image class="hero-bg" src={img} alt="" widths={[480, 800, 1200, 1600]} sizes="100vw" loading="eager" fetchpriority="high" />}

@@ -1,4 +1,5 @@
 ---
+import HeroBg from '../../components/HeroBg.astro';
 import { destaque } from '../../data/texto';
 // Página do bairro. O conteúdo vem do registro do bairro em src/data/bairros/<cidade>.ts.
 import Base from '../../layouts/Base.astro';
@@ -58,8 +59,9 @@ const vizinhos = bairro.vizinhos.map((nome) => ({ nome, pagina: acharBairro(cida
     breadcrumbSchema(crumbs),
   ]}
 >
-  <section class="hero page-hero">
-    <div class="container">
+  <section class="hero page-hero has-bg">
+    <HeroBg />
+    <div class="container hero-center">
       <span class="eyebrow">{bairro.regiao} · {cidade.nome}/{cidade.uf}</span>
       <h1 set:html={destaque(bairro.h1)} />
       <p class="hero-lead"><strong>{marca.chegada}</strong> {bairro.em}. Atendimento 24 horas, todos os dias.</p>

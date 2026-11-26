@@ -1,4 +1,5 @@
 ---
+import HeroBg from '../../components/HeroBg.astro';
 import { destaque } from '../../data/texto';
 import Base from '../../layouts/Base.astro';
 import CtaBand from '../../components/CtaBand.astro';
@@ -17,8 +18,9 @@ const crumbs = [
   description="Orientações práticas sobre pia, vaso sanitário, ralo e caixa de gordura entupidos, hidrojateamento e a hora certa de chamar uma desentupidora."
   schema={[breadcrumbSchema(crumbs)]}
 >
-  <section class="hero page-hero">
-    <div class="container">
+  <section class="hero page-hero has-bg">
+    <HeroBg />
+    <div class="container hero-center">
       <span class="eyebrow">Blog</span>
       <h1 set:html={destaque(`Dicas sobre entupimento`)} />
       <p class="hero-lead">O que fazer na hora, o que evitar e quando chamar uma desentupidora.</p>

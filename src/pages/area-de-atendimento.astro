@@ -1,4 +1,5 @@
 ---
+import HeroBg from '../components/HeroBg.astro';
 import { destaque } from '../data/texto';
 import Base from '../layouts/Base.astro';
 import CtaButtons from '../components/CtaButtons.astro';
@@ -22,8 +23,9 @@ const crumbs = [
   description="Cidades e bairros atendidos pela Desentupidora SOS no Rio de Janeiro, Espírito Santo, Petrópolis, Cuiabá, Juiz de Fora e João Pessoa. 24 horas."
   schema={[breadcrumbSchema(crumbs)]}
 >
-  <section class="hero page-hero">
-    <div class="container">
+  <section class="hero page-hero has-bg">
+    <HeroBg />
+    <div class="container hero-center">
       <span class="eyebrow">Área de atendimento</span>
       <h1 set:html={destaque(`Cidades e bairros atendidos`)} />
       <p class="hero-lead">Escolha sua cidade para ver o telefone da equipe da sua região. <strong>{marca.chegada}.</strong></p>
