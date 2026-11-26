@@ -1,7 +1,7 @@
 ---
+import { destaque } from '../../../data/texto';
 // Serviço dentro da cidade: sempre com o telefone da praça.
 import Base from '../../../layouts/Base.astro';
-import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CtaButtons from '../../../components/CtaButtons.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import ServicoConteudo from '../../../components/ServicoConteudo.astro';
@@ -53,9 +53,8 @@ const descricao = `${servico.nome} ${cidade.em}, 24 horas. ${servico.resumo} Che
 >
   <section class="hero page-hero">
     <div class="container">
-      <Breadcrumbs items={crumbs} />
       <span class="eyebrow">{cidade.nome}/{cidade.uf} · {marca.horario}</span>
-      <h1>{servico.nome} {cidade.em}</h1>
+      <h1 set:html={destaque(`${servico.nome} ${cidade.em}`)} />
       <p class="hero-lead">{servico.resumo} <strong>{marca.chegada}.</strong></p>
       <CtaButtons cidade={cidade} servico={servico.nome} />
     </div>

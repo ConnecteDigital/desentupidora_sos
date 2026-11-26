@@ -1,7 +1,7 @@
 ---
+import { destaque } from '../../data/texto';
 // Serviço geral: sem telefone fixo, com seletor de cidade.
 import Base from '../../layouts/Base.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaButtons from '../../components/CtaButtons.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import ServicoConteudo from '../../components/ServicoConteudo.astro';
@@ -35,9 +35,8 @@ const outros = servicos.filter((s) => s.slug !== servico.slug);
 >
   <section class="hero page-hero">
     <div class="container">
-      <Breadcrumbs items={crumbs} />
       <span class="eyebrow">{marca.horario} · {marca.emergencia}</span>
-      <h1>{servico.nome} 24 horas</h1>
+      <h1 set:html={destaque(`${servico.nome} 24 horas`)} />
       <p class="hero-lead">{servico.resumo} <strong>{marca.chegada}.</strong></p>
       <CtaButtons />
     </div>

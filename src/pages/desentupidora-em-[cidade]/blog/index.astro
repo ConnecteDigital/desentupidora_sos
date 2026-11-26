@@ -1,7 +1,7 @@
 ---
+import { destaque } from '../../../data/texto';
 // Blog da cidade: artigos locais, sempre com o telefone da praça.
 import Base from '../../../layouts/Base.astro';
-import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CtaButtons from '../../../components/CtaButtons.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import { getCollection } from 'astro:content';
@@ -37,9 +37,8 @@ const crumbs = [
 >
   <section class="hero page-hero">
     <div class="container">
-      <Breadcrumbs items={crumbs} />
       <span class="eyebrow">Blog · {cidade.nome}/{cidade.uf}</span>
-      <h1>Dicas sobre entupimento {cidade.em}</h1>
+      <h1 set:html={destaque(`Dicas sobre entupimento ${cidade.em}`)} />
       <p class="hero-lead">Conteúdo escrito para a realidade dos imóveis {cidade.em}. <strong>{marca.chegada}.</strong></p>
       <CtaButtons cidade={cidade} />
     </div>

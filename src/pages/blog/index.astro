@@ -1,6 +1,6 @@
 ---
+import { destaque } from '../../data/texto';
 import Base from '../../layouts/Base.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema } from '../../data/schema';
@@ -19,9 +19,8 @@ const crumbs = [
 >
   <section class="hero page-hero">
     <div class="container">
-      <Breadcrumbs items={crumbs} />
       <span class="eyebrow">Blog</span>
-      <h1>Dicas sobre entupimento</h1>
+      <h1 set:html={destaque(`Dicas sobre entupimento`)} />
       <p class="hero-lead">O que fazer na hora, o que evitar e quando chamar uma desentupidora.</p>
     </div>
   </section>

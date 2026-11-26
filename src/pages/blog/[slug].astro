@@ -1,6 +1,5 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaButtons from '../../components/CtaButtons.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
@@ -47,7 +46,6 @@ const article = {
 >
   <section class="hero page-hero">
     <div class="container article">
-      <Breadcrumbs items={crumbs} />
       <h1 style="text-transform:none">{post.data.titulo}</h1>
       <p class="hero-lead">{post.data.descricao}</p>
     </div>

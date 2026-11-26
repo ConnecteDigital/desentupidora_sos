@@ -1,6 +1,6 @@
 ---
+import { destaque } from '../data/texto';
 import Base from '../layouts/Base.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
 import FaqList from '../components/FaqList.astro';
 import PracaCards from '../components/PracaCards.astro';
 import { marca } from '../data/site';
@@ -34,9 +34,8 @@ const faq = [
 >
   <section class="hero page-hero">
     <div class="container">
-      <Breadcrumbs items={crumbs} />
       <span class="eyebrow">Contato</span>
-      <h1>Fale com a Desentupidora SOS</h1>
+      <h1 set:html={destaque(`Fale com a Desentupidora SOS`)} />
       <p class="hero-lead">Escolha sua cidade e chame pelo WhatsApp ou por ligação. <strong>{marca.horario}. {marca.chegada}.</strong></p>
     </div>
   </section>

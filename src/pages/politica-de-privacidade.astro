@@ -1,6 +1,6 @@
 ---
+import { destaque } from '../data/texto';
 import Base from '../layouts/Base.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { site } from '../data/site';
 import { breadcrumbSchema } from '../data/schema';
 
@@ -17,8 +17,7 @@ const crumbs = [
 >
   <section class="hero page-hero">
     <div class="container article">
-      <Breadcrumbs items={crumbs} />
-      <h1>Política de privacidade</h1>
+      <h1 set:html={destaque(`Política de privacidade`)} />
       <p class="hero-lead">Como tratamos os dados de quem visita este site e fala com a {site.name}.</p>
     </div>
   </section>

@@ -1,7 +1,7 @@
 ---
+import { destaque } from '../../data/texto';
 // Página do bairro. O conteúdo vem do registro do bairro em src/data/bairros/<cidade>.ts.
 import Base from '../../layouts/Base.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaButtons from '../../components/CtaButtons.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import FaqList from '../../components/FaqList.astro';
@@ -60,12 +60,9 @@ const vizinhos = bairro.vizinhos.map((nome) => ({ nome, pagina: acharBairro(cida
 >
   <section class="hero page-hero">
     <div class="container">
-      <Breadcrumbs items={crumbs} />
       <span class="eyebrow">{bairro.regiao} · {cidade.nome}/{cidade.uf}</span>
-      <h1>{bairro.h1}</h1>
-      <p class="hero-lead">
-        <strong>{marca.chegada}</strong> {bairro.em}. {marca.horario}, {marca.horarioDetalhe.toLowerCase()}.
-      </p>
+      <h1 set:html={destaque(bairro.h1)} />
+      <p class="hero-lead"><strong>{marca.chegada}</strong> {bairro.em}. Atendimento 24 horas, todos os dias.</p>
       <CtaButtons cidade={cidade} bairro={bairro.nome} />
     </div>
   </section>

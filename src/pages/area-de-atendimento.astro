@@ -1,6 +1,6 @@
 ---
+import { destaque } from '../data/texto';
 import Base from '../layouts/Base.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaButtons from '../components/CtaButtons.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
@@ -24,9 +24,8 @@ const crumbs = [
 >
   <section class="hero page-hero">
     <div class="container">
-      <Breadcrumbs items={crumbs} />
       <span class="eyebrow">Área de atendimento</span>
-      <h1>Cidades e bairros atendidos</h1>
+      <h1 set:html={destaque(`Cidades e bairros atendidos`)} />
       <p class="hero-lead">Escolha sua cidade para ver o telefone da equipe da sua região. <strong>{marca.chegada}.</strong></p>
       <CtaButtons />
     </div>

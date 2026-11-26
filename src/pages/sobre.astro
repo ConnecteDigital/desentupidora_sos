@@ -1,6 +1,6 @@
 ---
+import { destaque } from '../data/texto';
 import Base from '../layouts/Base.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaButtons from '../components/CtaButtons.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Diferenciais from '../components/Diferenciais.astro';
@@ -23,9 +23,8 @@ const crumbs = [
 >
   <section class="hero page-hero">
     <div class="container">
-      <Breadcrumbs items={crumbs} />
       <span class="eyebrow">Sobre</span>
-      <h1>Sobre a Desentupidora SOS</h1>
+      <h1 set:html={destaque(`Sobre a Desentupidora SOS`)} />
       <p class="hero-lead">Uma desentupidora dedicada a um único trabalho: resolver entupimentos, a qualquer hora.</p>
     </div>
   </section>

@@ -1,9 +1,9 @@
 ---
+import { destaque } from '../../data/texto';
 // Página da cidade: destino dos anúncios. Mostra SOMENTE o telefone da praça.
 import { Image } from 'astro:assets';
 import { foto } from '../../data/fotos';
 import Base from '../../layouts/Base.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaButtons from '../../components/CtaButtons.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
@@ -57,12 +57,9 @@ const posts = (await getCollection('blogCidades')).filter((p) => p.id.startsWith
   <section class:list={['hero', 'hero-home', { 'has-bg': heroImg }]}>
     {heroImg && <Image class="hero-bg" src={heroImg} alt="" widths={[480, 800, 1200, 1600]} sizes="100vw" loading="eager" fetchpriority="high" />}
     <div class="container hero-center">
-      <Breadcrumbs items={crumbs} />
       <span class="eyebrow">{cidade.nome}/{cidade.uf} · {marca.emergencia}</span>
-      <h1>Desentupidora 24 horas {cidade.em}</h1>
-      <p class="hero-lead">
-        <strong>{marca.chegada}.</strong> {marca.horario}, {marca.horarioDetalhe.toLowerCase()}, para casas, apartamentos, condomínios e empresas.
-      </p>
+      <h1 set:html={destaque(`Desentupidora 24 horas ${cidade.em}`)} />
+      <p class="hero-lead">Atendimento 24 horas, todos os dias. <strong>{marca.chegada}</strong> em casas, apartamentos, condomínios e empresas.</p>
       <CtaButtons cidade={cidade} />
       <ul class="hero-badges">
         <li><Icon name="bolt" size={22} /> <span>{marca.chegada}</span></li>

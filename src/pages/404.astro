@@ -1,4 +1,5 @@
 ---
+import { destaque } from '../data/texto';
 import Base from '../layouts/Base.astro';
 import CtaButtons from '../components/CtaButtons.astro';
 ---
@@ -7,7 +8,7 @@ import CtaButtons from '../components/CtaButtons.astro';
   <section class="hero page-hero">
     <div class="container">
       <span class="eyebrow">Erro 404</span>
-      <h1>Página não encontrada</h1>
+      <h1 set:html={destaque(`Página não encontrada`)} />
       <p class="hero-lead">O endereço pode ter mudado. Escolha sua cidade para falar com a Desentupidora SOS ou volte ao <a href="/" style="color:#fff">início</a>.</p>
       <CtaButtons />
     </div>
