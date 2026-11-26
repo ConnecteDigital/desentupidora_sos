@@ -4,7 +4,7 @@ import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const DIST = 'dist';
-const DOMINIO = 'https://desentupidorasos24hr.com.br';
+const DOMINIO = 'https://www.desentupidorasos24hr.com.br';
 // praça -> dígitos; cidade (slug da URL) -> praça
 const PRACAS = {
   'rio-de-janeiro': '5521971711247',
