@@ -1,0 +1,30 @@
+---
+import CtaButtons from './CtaButtons.astro';
+import { marca } from '../data/site';
+import type { Cidade } from '../data/cidades';
+
+interface Props {
+  cidade?: Cidade;
+  bairro?: string;
+  servico?: string;
+  title?: string;
+  text?: string;
+}
+
+const { cidade, bairro, servico, title = 'Entupiu? Chame agora.' } = Astro.props;
+const text =
+  Astro.props.text ??
+  (cidade
+    ? `${marca.horario} ${cidade.em}, inclusive domingos e feriados. ${marca.chegada}.`
+    : `${marca.horario}, inclusive domingos e feriados. ${marca.chegada}. Escolha sua cidade para ver o telefone.`);
+---
+
+<section class="cta-band">
+  <div class="container cta-band-inner">
+    <div>
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+    <CtaButtons cidade={cidade} bairro={bairro} servico={servico} />
+  </div>
+</section>

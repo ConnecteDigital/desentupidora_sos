@@ -1,0 +1,100 @@
+---
+// Serviço dentro da cidade: sempre com o telefone da praça.
+import Base from '../../../layouts/Base.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import CtaButtons from '../../../components/CtaButtons.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import ServicoConteudo from '../../../components/ServicoConteudo.astro';
+import { marca } from '../../../data/site';
+import { servicos, type Servico } from '../../../data/servicos';
+import { phoneDisplay } from '../../../data/pracas';
+import { cidadesPublicadas, pracaDaCidade, type Cidade } from '../../../data/cidades';
+import { bairrosDaCidade } from '../../../data/bairros';
+import { cidadePath, bairroPath, servicoCidadePath } from '../../../data/rotas';
+import { faqSchema, breadcrumbSchema, servicoSchema } from '../../../data/schema';
+
+export function getStaticPaths() {
+  return cidadesPublicadas().flatMap((cidade) =>
+    servicos.map((servico) => ({ params: { cidade: cidade.slug, servico: servico.slug }, props: { cidade, servico } })),
+  );
+}
+
+interface Props {
+  cidade: Cidade;
+  servico: Servico;
+}
+
+const { cidade, servico } = Astro.props;
+const fone = phoneDisplay(pracaDaCidade(cidade));
+const path = servicoCidadePath(cidade, servico);
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: `Desentupidora ${cidade.em}`, path: cidadePath(cidade) },
+  { name: servico.nome, path },
+];
+const faq = [
+  ...servico.faq,
+  {
+    q: `Em quanto tempo vocês chegam para ${servico.nome.toLowerCase()} ${cidade.em}?`,
+    a: `Chegamos em 20 minutos. O atendimento ${cidade.em} é 24 horas, todos os dias, inclusive domingos e feriados.`,
+  },
+];
+const indicados = bairrosDaCidade(cidade.slug).filter((b) => b.servico === servico.slug);
+const outros = servicos.filter((s) => s.slug !== servico.slug);
+const descricao = `${servico.nome} ${cidade.em}, 24 horas. ${servico.resumo} Chegamos em 20 minutos. Ligue ${fone}.`;
+---
+
+<Base
+  title={`${servico.nome} ${cidade.em} 24h | Desentupidora SOS`}
+  description={descricao}
+  cidade={cidade}
+  servico={servico.nome}
+  schema={[servicoSchema(servico, cidade), faqSchema(faq), breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="eyebrow">{cidade.nome}/{cidade.uf} · {marca.horario}</span>
+      <h1>{servico.nome} {cidade.em}</h1>
+      <p class="hero-lead">{servico.resumo} <strong>{marca.chegada}.</strong></p>
+      <CtaButtons cidade={cidade} servico={servico.nome} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content-grid">
+      <article class="prose">
+        <ServicoConteudo servico={servico} cidade={cidade} faq={faq} />
+
+        {
+          indicados.length > 0 && (
+            <>
+              <h2>Bairros onde esse tipo de entupimento é comum</h2>
+              <ul class="chips">
+                {indicados.map((b) => <li><a href={bairroPath(b)}>{b.nome}</a></li>)}
+                <li><a href={`${cidadePath(cidade)}#bairros`}>Todos os bairros {cidade.em}</a></li>
+              </ul>
+            </>
+          )
+        }
+      </article>
+
+      <aside class="sidebar">
+        <div class="side-card">
+          <h2>Atendimento imediato</h2>
+          <p>{marca.chegada}. {marca.horario} {cidade.em}.</p>
+          <CtaButtons cidade={cidade} servico={servico.nome} size="md" />
+        </div>
+        <div class="side-list">
+          <h2>Outros serviços {cidade.em}</h2>
+          <ul>
+            {outros.map((s) => <li><a href={servicoCidadePath(cidade, s)}>{s.nome}</a></li>)}
+            <li><a href={cidadePath(cidade)}><strong>Desentupidora {cidade.em}</strong></a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand cidade={cidade} servico={servico.nome} />
+</Base>

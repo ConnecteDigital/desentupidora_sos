@@ -1,0 +1,34 @@
+---
+// Botão flutuante de WhatsApp (desktop) e barra fixa Ligar | WhatsApp (celular).
+// Sempre com o número da praça. Sem praça: atalho para escolher a cidade.
+import Icon from './Icon.astro';
+import { telHref } from '../data/pracas';
+import { pracaDaCidade, whatsDaCidade, type Cidade } from '../data/cidades';
+
+interface Props {
+  cidade?: Cidade;
+  bairro?: string;
+  servico?: string;
+}
+
+const { cidade, bairro, servico } = Astro.props;
+---
+
+{
+  cidade ? (
+    <div class="float-cta">
+      <a class="float-call" href={telHref(pracaDaCidade(cidade))} aria-label="Ligar agora">
+        <Icon name="phone" size={22} /> <span>Ligar</span>
+      </a>
+      <a class="float-wa" href={whatsDaCidade(cidade, { bairro, servico })} target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+        <Icon name="whatsapp" size={30} /> <span>WhatsApp</span>
+      </a>
+    </div>
+  ) : (
+    <div class="float-cta float-cta-city">
+      <a class="float-city" href="/#cidades">
+        <Icon name="pin" size={22} /> <span>Escolha sua cidade</span>
+      </a>
+    </div>
+  )
+}

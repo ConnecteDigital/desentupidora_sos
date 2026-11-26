@@ -1,0 +1,33 @@
+---
+import { marca } from '../data/site';
+import type { Cidade } from '../data/cidades';
+
+interface Props {
+  cidade?: Cidade;
+}
+const { cidade } = Astro.props;
+---
+
+<section class="section section-dark">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Do chamado ao cano desentupido</h2>
+      <p>Três passos, a qualquer hora do dia ou da noite.</p>
+    </div>
+    <div class="steps">
+      <div class="step-card">
+        <h3>Chame no WhatsApp ou ligue</h3>
+        <p>Diga {cidade ? 'o bairro' : 'a cidade, o bairro'} e o que está entupido. Se puder, mande uma foto ou um vídeo.</p>
+      </div>
+      <div class="step-card">
+        <h3>{marca.chegada}</h3>
+        <p>Assim que você chama, a equipe sai para o endereço{cidade ? ` ${cidade.em}` : ''}, com o equipamento para o seu caso.</p>
+      </div>
+      <div class="step-card">
+        <h3>Desentupimento feito e testado</h3>
+        <p>Desobstruímos a tubulação e testamos o escoamento com água antes de encerrar o atendimento.</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+---
+import Icon from './Icon.astro';
+import { marca } from '../data/site';
+import type { Cidade } from '../data/cidades';
+
+interface Props {
+  cidade?: Cidade;
+}
+const { cidade } = Astro.props;
+---
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Por que a SOS</span>
+      <h2>Desentupidora para a hora do aperto</h2>
+      <p>Entupimento não marca hora. Por isso o atendimento{cidade ? ` ${cidade.em}` : ''} funciona o tempo todo e a equipe sai assim que você chama.</p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <Icon name="bolt" size={30} />
+        <div><h3>{marca.chegada}</h3><p>Vaso transbordando ou esgoto voltando não pode esperar. Você chama e a equipe vai direto para o seu endereço.</p></div>
+      </div>
+      <div class="feature">
+        <Icon name="clock" size={30} />
+        <div><h3>{marca.horario}</h3><p>{marca.horarioDetalhe}. De madrugada também.</p></div>
+      </div>
+      <div class="feature">
+        <Icon name="shield" size={30} />
+        <div><h3>{marca.emergencia}</h3><p>Pia parada, ralo devolvendo água, coluna de prédio entupida, garagem alagada: atendemos urgências de desentupimento.</p></div>
+      </div>
+      <div class="feature">
+        <Icon name="check" size={30} />
+        <div><h3>{marca.publico}</h3><p>{marca.publicoDetalhe}.</p></div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,70 @@
+---
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import { site, marca } from '../data/site';
+import { servicos } from '../data/servicos';
+import { phoneDisplay, telHref } from '../data/pracas';
+import { cidades, pracaDaCidade, destinoDaCidade, whatsDaCidade, type Cidade } from '../data/cidades';
+import { cidadePath, servicoCidadePath, servicoPath } from '../data/rotas';
+
+interface Props {
+  cidade?: Cidade;
+  bairro?: string;
+  servico?: string;
+}
+
+const { cidade, bairro, servico } = Astro.props;
+const praca = cidade ? pracaDaCidade(cidade) : undefined;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <Logo width={170} />
+      <p>
+        Desentupidora 24 horas{cidade ? ` ${cidade.em}` : ''}. {marca.chegada}. {marca.emergencia}, com {marca.publico.toLowerCase()}.
+      </p>
+      <ul class="footer-contact">
+        {
+          cidade && praca ? (
+            <>
+              <li><a href={whatsDaCidade(cidade, { bairro, servico })} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} /> WhatsApp {phoneDisplay(praca)}</a></li>
+              <li><a href={telHref(praca)}><Icon name="phone" size={18} /> Ligar {phoneDisplay(praca)}</a></li>
+            </>
+          ) : (
+            <li><a href="/#cidades"><Icon name="pin" size={18} /> Escolha sua cidade para ver o telefone</a></li>
+          )
+        }
+        <li><Icon name="clock" size={18} /> Aberto 24 horas, todos os dias</li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-title">Serviços{cidade ? ` ${cidade.em}` : ''}</h2>
+      <ul class="footer-links">
+        {servicos.map((s) => <li><a href={cidade ? servicoCidadePath(cidade, s) : servicoPath(s)}>{s.nome}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-title">Cidades atendidas</h2>
+      <ul class="footer-links">
+        {cidades.map((c) => <li><a href={destinoDaCidade(c)}>Desentupidora {c.em}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-title">{site.name}</h2>
+      <ul class="footer-links">
+        {cidade && <li><a href={`${cidadePath(cidade)}#bairros`}>Bairros atendidos {cidade.em}</a></li>}
+        <li><a href="/area-de-atendimento/">Área de atendimento</a></li>
+        <li><a href="/servicos/">Todos os serviços</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/sobre/">Sobre</a></li>
+        <li><a href="/contato/">Contato</a></li>
+        <li><a href="/politica-de-privacidade/">Política de privacidade</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© {year} {site.name}. Todos os direitos reservados.</p>
+  </div>
+</footer>

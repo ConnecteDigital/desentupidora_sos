@@ -1,0 +1,127 @@
+---
+// Página da cidade: destino dos anúncios. Mostra SOMENTE o telefone da praça.
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaButtons from '../../components/CtaButtons.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import FaqList from '../../components/FaqList.astro';
+import Icon from '../../components/Icon.astro';
+import Diferenciais from '../../components/Diferenciais.astro';
+import ComoFunciona from '../../components/ComoFunciona.astro';
+import PorQue from '../../components/PorQue.astro';
+import { marca } from '../../data/site';
+import { servicos } from '../../data/servicos';
+import { phoneDisplay } from '../../data/pracas';
+import { cidadesPublicadas, pracaDaCidade, type Cidade } from '../../data/cidades';
+import { bairrosPorRegiao, bairrosDaCidade } from '../../data/bairros';
+import { cidadePath, bairroPath } from '../../data/rotas';
+import { faqSchema, breadcrumbSchema, serviceSchema } from '../../data/schema';
+
+export function getStaticPaths() {
+  return cidadesPublicadas().map((cidade) => ({ params: { cidade: cidade.slug }, props: { cidade } }));
+}
+
+interface Props {
+  cidade: Cidade;
+}
+
+const { cidade } = Astro.props;
+const praca = pracaDaCidade(cidade);
+const fone = phoneDisplay(praca);
+const faq = (cidade.faq ?? []).map((f) => ({ q: f.q, a: f.a.replaceAll('{telefone}', fone) }));
+const regioes = bairrosPorRegiao(cidade.slug, cidade.regioes);
+const total = bairrosDaCidade(cidade.slug).length;
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: `Desentupidora ${cidade.em}`, path: cidadePath(cidade) },
+];
+const descricao = `Desentupidora 24 horas ${cidade.em}: pia, ralo, vaso, esgoto, coluna, caixa de gordura e hidrojateamento. Chegamos em 20 minutos. Ligue ${fone}.`;
+---
+
+<Base
+  title={`Desentupidora 24 Horas ${cidade.em} | Desentupidora SOS`}
+  description={descricao}
+  cidade={cidade}
+  schema={[
+    serviceSchema({ nome: `Desentupidora 24 horas ${cidade.em}`, descricao, area: `${cidade.nome} - ${cidade.uf}`, cidade }),
+    faqSchema(faq),
+    breadcrumbSchema(crumbs),
+  ]}
+>
+  <section class="hero hero-home">
+    <div class="container hero-center">
+      <Breadcrumbs items={crumbs} />
+      <span class="eyebrow">{cidade.nome}/{cidade.uf} · {marca.emergencia}</span>
+      <h1>Desentupidora 24 horas {cidade.em}</h1>
+      <p class="hero-lead">
+        <strong>{marca.chegada}.</strong> {marca.horario}, {marca.horarioDetalhe.toLowerCase()}, para casas, apartamentos, condomínios e empresas.
+      </p>
+      <CtaButtons cidade={cidade} />
+      <ul class="hero-badges">
+        <li><Icon name="bolt" size={22} /> <span>{marca.chegada}</span></li>
+        <li><Icon name="clock" size={22} /> <span>{marca.horario}</span></li>
+        <li><Icon name="shield" size={22} /> <span>{marca.emergencia}</span></li>
+        <li><Icon name="check" size={22} /> <span>Residencial e comercial</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <Diferenciais />
+
+  <section class="section section-soft" id="servicos">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Serviços {cidade.em}</span>
+        <h2>Desentupimento {cidade.em}</h2>
+        {(cidade.intro ?? []).map((p) => <p>{p}</p>)}
+      </div>
+      <div class="services-grid">
+        {servicos.map((s) => <ServiceCard servico={s} cidade={cidade} />)}
+      </div>
+    </div>
+  </section>
+
+  <PorQue cidade={cidade} />
+  <ComoFunciona cidade={cidade} />
+
+  {
+    total > 0 && (
+      <section class="section section-soft" id="bairros">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Bairros atendidos</span>
+            <h2>Desentupidora por bairro {cidade.em}</h2>
+            <p>Veja a página do seu bairro, com os entupimentos mais comuns da região e as ruas atendidas.</p>
+          </div>
+          <div class="zones zones-wide">
+            {regioes.map((g) => (
+              <div class="zone">
+                <h3>{g.regiao}</h3>
+                <ul>
+                  {g.bairros.map((b) => (
+                    <li>
+                      <a href={bairroPath(b)}><Icon name="pin" size={16} /> Desentupidora {b.em}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section">
+    <div class="container" style="max-width: 860px">
+      <div class="section-head">
+        <span class="eyebrow">Dúvidas frequentes</span>
+        <h2>Perguntas frequentes sobre desentupimento {cidade.em}</h2>
+      </div>
+      <FaqList items={faq} />
+    </div>
+  </section>
+
+  <CtaBand cidade={cidade} title={`Precisa de desentupidora ${cidade.em} agora?`} />
+</Base>

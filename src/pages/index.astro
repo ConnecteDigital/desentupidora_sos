@@ -1,0 +1,139 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import CtaBand from '../components/CtaBand.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import FaqList from '../components/FaqList.astro';
+import Icon from '../components/Icon.astro';
+import Diferenciais from '../components/Diferenciais.astro';
+import ComoFunciona from '../components/ComoFunciona.astro';
+import PorQue from '../components/PorQue.astro';
+import PracaCards from '../components/PracaCards.astro';
+import { site, marca } from '../data/site';
+import { servicos } from '../data/servicos';
+import { cidades } from '../data/cidades';
+import { faqSchema, breadcrumbSchema, serviceSchema } from '../data/schema';
+import { getCollection } from 'astro:content';
+
+const nomes = cidades.map((c) => c.nome);
+const listaCidades = `${nomes.slice(0, -1).join(', ')} e ${nomes.at(-1)}`;
+
+const faq = [
+  {
+    q: 'Em quais cidades a Desentupidora SOS atende?',
+    a: `Atendemos ${listaCidades}. Cada cidade tem telefone e WhatsApp próprios.`,
+  },
+  {
+    q: 'O atendimento é 24 horas?',
+    a: 'Sim. O atendimento é 24 horas, todos os dias, inclusive domingos e feriados, em todas as cidades atendidas.',
+  },
+  {
+    q: 'Em quanto tempo a desentupidora chega?',
+    a: 'Chegamos em 20 minutos.',
+  },
+  {
+    q: 'Quais serviços a Desentupidora SOS faz?',
+    a: 'Somente desentupimento: pia, ralo, vaso sanitário, cano, esgoto, coluna de prédio, rede pluvial, desentupimento e limpeza de caixa de gordura e hidrojateamento.',
+  },
+  {
+    q: 'Vocês atendem empresas e condomínios?',
+    a: 'Sim. O atendimento é residencial e comercial: casas, apartamentos, condomínios, lojas, restaurantes e empresas.',
+  },
+  {
+    q: 'Como chamo a desentupidora?',
+    a: 'Escolha sua cidade nesta página e chame pelo WhatsApp ou por ligação, no telefone da sua região.',
+  },
+];
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.data.getTime() - a.data.data.getTime()).slice(0, 3);
+const crumbs = [{ name: 'Início', path: '/' }];
+---
+
+<Base
+  listaPracas
+  title="Desentupidora 24 Horas | Chegamos em 20 Minutos | Desentupidora SOS"
+  description={`Desentupidora 24 horas em ${listaCidades}. Pia, ralo, vaso, esgoto, caixa de gordura e hidrojateamento. Chegamos em 20 minutos.`}
+  schema={[
+    serviceSchema({ nome: 'Desentupidora 24 horas', descricao: site.description }),
+    faqSchema(faq),
+    breadcrumbSchema(crumbs),
+  ]}
+>
+  <section class="hero hero-home">
+    <div class="container hero-center">
+      <span class="eyebrow">Desentupidora 24 horas · {marca.emergencia}</span>
+      <h1>Desentupidora 24 horas: <em>chegamos em 20 minutos</em></h1>
+      <p class="hero-lead">Pia, ralo, vaso sanitário, esgoto ou caixa de gordura entupidos? Escolha sua cidade e fale agora com a equipe da sua região.</p>
+      <CtaButtons />
+      <ul class="hero-badges">
+        <li><Icon name="bolt" size={22} /> <span>{marca.chegada}</span></li>
+        <li><Icon name="clock" size={22} /> <span>{marca.horario}</span></li>
+        <li><Icon name="shield" size={22} /> <span>{marca.emergencia}</span></li>
+        <li><Icon name="check" size={22} /> <span>Residencial e comercial</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <Diferenciais />
+
+  <section class="section section-soft" id="cidades">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Escolha sua cidade</span>
+        <h2>Onde a Desentupidora SOS atende</h2>
+        <p>Cada região tem um telefone próprio, que serve para ligação e WhatsApp. Fale direto com a equipe da sua cidade.</p>
+      </div>
+      <PracaCards />
+    </div>
+  </section>
+
+  <section class="section" id="servicos">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Nossos serviços</span>
+        <h2>Serviços de desentupimento</h2>
+        <p>Trabalhamos só com desentupimento, em imóveis residenciais e comerciais.</p>
+      </div>
+      <div class="services-grid">
+        {servicos.map((s) => <ServiceCard servico={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <ComoFunciona />
+  <PorQue />
+  <CtaBand />
+
+  {
+    posts.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Blog</span>
+            <h2>Dicas sobre entupimento</h2>
+          </div>
+          <div class="posts">
+            {posts.map((p) => (
+              <a class="post-card" href={`/blog/${p.id}/`}>
+                <h3>{p.data.titulo}</h3>
+                <p>{p.data.descricao}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section-soft">
+    <div class="container" style="max-width: 860px">
+      <div class="section-head">
+        <span class="eyebrow">Dúvidas frequentes</span>
+        <h2>Perguntas frequentes</h2>
+      </div>
+      <FaqList items={faq} />
+    </div>
+  </section>
+
+  <CtaBand title="Precisa de uma desentupidora agora?" />
+</Base>

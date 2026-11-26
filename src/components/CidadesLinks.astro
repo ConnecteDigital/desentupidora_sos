@@ -1,0 +1,24 @@
+---
+// Lista de cidades (seletor em bloco). Opcionalmente aponta para um serviço dentro de cada cidade.
+import Icon from './Icon.astro';
+import { cidades, destinoDaCidade } from '../data/cidades';
+import { servicoCidadePath } from '../data/rotas';
+import type { Servico } from '../data/servicos';
+
+interface Props {
+  servico?: Servico;
+}
+const { servico } = Astro.props;
+---
+
+<ul class="chips">
+  {
+    cidades.map((c) => (
+      <li>
+        <a href={servico && c.publicada ? servicoCidadePath(c, servico) : destinoDaCidade(c)}>
+          <Icon name="pin" size={15} /> {servico ? `${servico.curto} ${c.em}` : `Desentupidora ${c.em}`}
+        </a>
+      </li>
+    ))
+  }
+</ul>

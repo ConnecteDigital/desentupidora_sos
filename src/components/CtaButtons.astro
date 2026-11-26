@@ -1,0 +1,34 @@
+---
+// Botões de ação. Com cidade: WhatsApp + Ligar da praça. Sem cidade: seletor de cidade.
+import Icon from './Icon.astro';
+import CitySelector from './CitySelector.astro';
+import { phoneDisplay, telHref } from '../data/pracas';
+import { pracaDaCidade, whatsDaCidade, type Cidade } from '../data/cidades';
+
+interface Props {
+  cidade?: Cidade;
+  bairro?: string;
+  servico?: string;
+  size?: 'md' | 'lg';
+}
+
+const { cidade, bairro, servico, size = 'lg' } = Astro.props;
+const praca = cidade ? pracaDaCidade(cidade) : undefined;
+---
+
+<div class="cta-buttons">
+  {
+    cidade && praca ? (
+      <>
+        <a class={`btn btn-wa btn-${size}`} href={whatsDaCidade(cidade, { bairro, servico })} target="_blank" rel="noopener">
+          <Icon name="whatsapp" size={22} /> Chamar no WhatsApp
+        </a>
+        <a class={`btn btn-call btn-${size}`} href={telHref(praca)}>
+          <Icon name="phone" size={20} /> Ligar {phoneDisplay(praca)}
+        </a>
+      </>
+    ) : (
+      <CitySelector size={size} />
+    )
+  }
+</div>

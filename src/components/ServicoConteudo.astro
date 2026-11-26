@@ -1,0 +1,35 @@
+---
+// Corpo da página de serviço (usado na versão geral e na versão por cidade).
+import FaqList from './FaqList.astro';
+import { marca } from '../data/site';
+import type { Faq, Servico } from '../data/servicos';
+import type { Cidade } from '../data/cidades';
+
+interface Props {
+  servico: Servico;
+  cidade?: Cidade;
+  faq: Faq[];
+}
+const { servico, cidade, faq } = Astro.props;
+const nota = cidade?.notasServico?.[servico.slug];
+---
+
+{servico.intro.map((p) => <p>{p}</p>)}
+{nota && <p>{nota}</p>}
+
+<h2>Quando chamar a desentupidora</h2>
+<ul>{servico.sinais.map((s) => <li>{s}</li>)}</ul>
+
+<h2>Como o serviço é feito</h2>
+<ol>{servico.comoFazemos.map((s) => <li>{s}</li>)}</ol>
+
+<h2>Atendimento da Desentupidora SOS{cidade ? ` ${cidade.em}` : ''}</h2>
+<ul>
+  <li>{marca.chegada}</li>
+  <li>{marca.horario}, {marca.horarioDetalhe.toLowerCase()}</li>
+  <li>{marca.emergencia}</li>
+  <li>{marca.publico}: {marca.publicoDetalhe.toLowerCase()}</li>
+</ul>
+
+<h2>Perguntas frequentes sobre {servico.nome.toLowerCase()}</h2>
+<FaqList items={faq} />

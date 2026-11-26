@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import FaqList from '../components/FaqList.astro';
+import PracaCards from '../components/PracaCards.astro';
+import { marca } from '../data/site';
+import { breadcrumbSchema, faqSchema } from '../data/schema';
+
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Contato', path: '/contato/' },
+];
+const faq = [
+  {
+    q: 'Qual o telefone da Desentupidora SOS?',
+    a: 'Cada cidade tem um telefone próprio, que também é o WhatsApp. Veja nesta página o número da sua região.',
+  },
+  {
+    q: 'Posso chamar pelo WhatsApp de madrugada?',
+    a: 'Sim. O atendimento por WhatsApp e por ligação funciona 24 horas, todos os dias, inclusive domingos e feriados.',
+  },
+  {
+    q: 'O que informar ao chamar?',
+    a: 'A cidade, o bairro e o que está entupido (pia, ralo, vaso, esgoto, caixa de gordura). Foto ou vídeo ajudam a equipe a ir com o equipamento certo.',
+  },
+];
+---
+
+<Base
+  listaPracas
+  title="Contato: Telefone e WhatsApp por Cidade | Desentupidora SOS"
+  description="Telefones e WhatsApp da Desentupidora SOS em cada cidade atendida. Atendimento 24 horas, chegamos em 20 minutos."
+  schema={[faqSchema(faq), breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="eyebrow">Contato</span>
+      <h1>Fale com a Desentupidora SOS</h1>
+      <p class="hero-lead">Escolha sua cidade e chame pelo WhatsApp ou por ligação. <strong>{marca.horario}. {marca.chegada}.</strong></p>
+    </div>
+  </section>
+  <section class="section section-soft" id="cidades">
+    <div class="container">
+      <PracaCards />
+    </div>
+  </section>
+  <section class="section">
+    <div class="container" style="max-width: 860px">
+      <div class="section-head">
+        <h2>Dúvidas sobre o contato</h2>
+      </div>
+      <FaqList items={faq} />
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { site } from '../data/site';
+import { breadcrumbSchema } from '../data/schema';
+
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Política de privacidade', path: '/politica-de-privacidade/' },
+];
+---
+
+<Base
+  title="Política de Privacidade | Desentupidora SOS"
+  description="Como a Desentupidora SOS trata os dados de quem visita o site e entra em contato por WhatsApp ou telefone."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container article">
+      <Breadcrumbs items={crumbs} />
+      <h1>Política de privacidade</h1>
+      <p class="hero-lead">Como tratamos os dados de quem visita este site e fala com a {site.name}.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container article">
+      <div class="prose">
+        <h2>Dados que este site coleta</h2>
+        <p>
+          Este site não tem cadastro nem formulário. Não pedimos nome, e-mail, documento ou endereço para a navegação.
+        </p>
+
+        <h2>Contato por WhatsApp e telefone</h2>
+        <p>
+          Ao clicar nos botões de WhatsApp ou de ligação, você é direcionado para o aplicativo do seu aparelho. O número de
+          telefone e as informações que você enviar (como endereço, fotos e descrição do problema) são usados apenas para
+          atender o seu pedido de desentupimento.
+        </p>
+
+        <h2>Cookies e medição de audiência</h2>
+        <p>
+          O site pode usar a tag do Google para medir visitas e contar cliques nos botões de WhatsApp e de ligação, o que
+          inclui o uso de cookies. Esses dados são estatísticos e servem para avaliar o desempenho do site e dos anúncios.
+          Você pode bloquear ou apagar cookies nas configurações do seu navegador.
+        </p>
+
+        <h2>Compartilhamento</h2>
+        <p>
+          Não vendemos dados pessoais. As informações de medição são processadas pelo Google, de acordo com as políticas
+          dele. As conversas por WhatsApp seguem os termos do próprio aplicativo.
+        </p>
+
+        <h2>Seus direitos</h2>
+        <p>
+          Conforme a Lei Geral de Proteção de Dados (Lei nº 13.709/2018), você pode pedir informações, correção ou exclusão
+          dos dados que nos enviou. Para isso, fale com a equipe da sua cidade pelos canais da página de
+          <a href="/contato/">contato</a>.
+        </p>
+
+        <h2>Alterações</h2>
+        <p>Esta política pode ser atualizada. A versão em vigor é sempre a publicada nesta página.</p>
+      </div>
+    </div>
+  </section>
+</Base>

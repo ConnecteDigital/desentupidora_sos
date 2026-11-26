@@ -1,0 +1,72 @@
+---
+// Serviço geral: sem telefone fixo, com seletor de cidade.
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaButtons from '../../components/CtaButtons.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import ServicoConteudo from '../../components/ServicoConteudo.astro';
+import CidadesLinks from '../../components/CidadesLinks.astro';
+import { marca } from '../../data/site';
+import { servicos, type Servico } from '../../data/servicos';
+import { servicoPath } from '../../data/rotas';
+import { faqSchema, breadcrumbSchema, servicoSchema } from '../../data/schema';
+
+export function getStaticPaths() {
+  return servicos.map((servico) => ({ params: { servico: servico.slug }, props: { servico } }));
+}
+
+interface Props {
+  servico: Servico;
+}
+
+const { servico } = Astro.props;
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Serviços', path: '/servicos/' },
+  { name: servico.nome, path: servicoPath(servico) },
+];
+const outros = servicos.filter((s) => s.slug !== servico.slug);
+---
+
+<Base
+  title={`${servico.nome} 24 Horas | Desentupidora SOS`}
+  description={`${servico.nome} 24 horas. ${servico.resumo} Chegamos em 20 minutos. Escolha sua cidade e fale com a equipe.`}
+  schema={[servicoSchema(servico), faqSchema(servico.faq), breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="eyebrow">{marca.horario} · {marca.emergencia}</span>
+      <h1>{servico.nome} 24 horas</h1>
+      <p class="hero-lead">{servico.resumo} <strong>{marca.chegada}.</strong></p>
+      <CtaButtons />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content-grid">
+      <article class="prose">
+        <ServicoConteudo servico={servico} faq={servico.faq} />
+        <h2>{servico.nome} na sua cidade</h2>
+        <p>Escolha a cidade para ver o telefone e o WhatsApp da equipe que atende a sua região:</p>
+        <CidadesLinks servico={servico} />
+      </article>
+
+      <aside class="sidebar">
+        <div class="side-card">
+          <h2>Atendimento imediato</h2>
+          <p>{marca.chegada}. Escolha sua cidade para falar com a equipe.</p>
+          <CtaButtons size="md" />
+        </div>
+        <div class="side-list">
+          <h2>Outros serviços</h2>
+          <ul>
+            {outros.map((s) => <li><a href={servicoPath(s)}>{s.nome}</a></li>)}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Diferenciais from '../components/Diferenciais.astro';
+import CidadesLinks from '../components/CidadesLinks.astro';
+import { marca } from '../data/site';
+import { servicos } from '../data/servicos';
+import { servicoPath } from '../data/rotas';
+import { breadcrumbSchema } from '../data/schema';
+
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Sobre', path: '/sobre/' },
+];
+---
+
+<Base
+  title="Sobre a Desentupidora SOS | Desentupidora 24 Horas"
+  description="Conheça a Desentupidora SOS: desentupidora 24 horas, com chegada em 20 minutos, serviços emergenciais e atendimento residencial e comercial."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="eyebrow">Sobre</span>
+      <h1>Sobre a Desentupidora SOS</h1>
+      <p class="hero-lead">Uma desentupidora dedicada a um único trabalho: resolver entupimentos, a qualquer hora.</p>
+    </div>
+  </section>
+
+  <Diferenciais />
+
+  <section class="section">
+    <div class="container article">
+      <div class="prose">
+        <h2>O que fazemos</h2>
+        <p>
+          A Desentupidora SOS trabalha exclusivamente com desentupimento. Não fazemos outros tipos de serviço: o foco é
+          desobstruir pias, ralos, vasos sanitários, canos, redes de esgoto, colunas de prédios, redes pluviais e caixas de gordura.
+        </p>
+        <ul>
+          {servicos.map((s) => <li><a href={servicoPath(s)}>{s.nome}</a></li>)}
+        </ul>
+
+        <h2>Como atendemos</h2>
+        <ul>
+          <li><strong>{marca.chegada}.</strong> Você chama e a equipe sai para o seu endereço.</li>
+          <li><strong>{marca.horario}.</strong> {marca.horarioDetalhe}.</li>
+          <li><strong>{marca.emergencia}.</strong> Vaso transbordando, esgoto voltando, pia parada.</li>
+          <li><strong>{marca.publico}.</strong> {marca.publicoDetalhe}.</li>
+        </ul>
+
+        <h2>Onde atendemos</h2>
+        <p>Cada cidade tem telefone e WhatsApp próprios. Escolha a sua:</p>
+        <CidadesLinks />
+      </div>
+      <div class="side-card" style="margin-top:40px">
+        <h2>Fale com a equipe da sua cidade</h2>
+        <p>{marca.horario}. {marca.chegada}.</p>
+        <CtaButtons size="md" />
+      </div>
+    </div>
+  </section>
+  <CtaBand />
+</Base>

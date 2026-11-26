@@ -1,0 +1,44 @@
+---
+// Cards das praças com telefone e WhatsApp de cada uma (início e contato).
+import Icon from './Icon.astro';
+import { pracas, phoneDisplay, telHref, whatsappUrl, mensagemDaPraca } from '../data/pracas';
+import { cidadesDaPraca } from '../data/cidades';
+import { cidadePath } from '../data/rotas';
+---
+
+<div class="pracas">
+  {
+    pracas.map((p) => {
+      const lista = cidadesDaPraca(p);
+      return (
+        <article class="praca-card" id={p.slug}>
+          <h3>{p.nome}</h3>
+          <ul class="praca-cidades">
+            {lista.map((c) => (
+              <li>
+                {c.publicada ? (
+                  <a href={cidadePath(c)}>
+                    <Icon name="pin" size={16} /> Desentupidora {c.em}
+                  </a>
+                ) : (
+                  <span>
+                    <Icon name="pin" size={16} /> {c.nome}/{c.uf}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+          <p class="praca-fone">{phoneDisplay(p)}</p>
+          <div class="praca-acoes">
+            <a class="btn btn-wa btn-md" href={whatsappUrl(p, mensagemDaPraca(p))} target="_blank" rel="noopener" data-cidade={p.nome}>
+              <Icon name="whatsapp" size={20} /> WhatsApp
+            </a>
+            <a class="btn btn-call btn-md" href={telHref(p)} data-cidade={p.nome}>
+              <Icon name="phone" size={18} /> Ligar
+            </a>
+          </div>
+        </article>
+      );
+    })
+  }
+</div>

@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbSchema } from '../../data/schema';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.data.getTime() - a.data.data.getTime());
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Blog', path: '/blog/' },
+];
+---
+
+<Base
+  title="Blog sobre Entupimento: Dicas e Orientações | Desentupidora SOS"
+  description="Orientações práticas sobre pia, vaso sanitário, ralo e caixa de gordura entupidos, hidrojateamento e a hora certa de chamar uma desentupidora."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="eyebrow">Blog</span>
+      <h1>Dicas sobre entupimento</h1>
+      <p class="hero-lead">O que fazer na hora, o que evitar e quando chamar uma desentupidora.</p>
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container posts">
+      {
+        posts.map((p) => (
+          <a class="post-card" href={`/blog/${p.id}/`}>
+            <h2>{p.data.titulo}</h2>
+            <p>{p.data.descricao}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+  <CtaBand />
+</Base>

@@ -1,0 +1,33 @@
+---
+// Seletor "Escolha sua cidade": usado nas páginas sem praça, no lugar do telefone.
+import Icon from './Icon.astro';
+import { pracas } from '../data/pracas';
+import { cidadesDaPraca, destinoDaCidade } from '../data/cidades';
+
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  // abre para cima (rodapé) ou alinhado à direita (cabeçalho)
+  align?: 'left' | 'right';
+}
+
+const { size = 'lg', align = 'left' } = Astro.props;
+---
+
+<details class:list={['city-select', `city-select-${align}`]}>
+  <summary class={`btn btn-accent btn-${size}`}>
+    <Icon name="pin" size={size === 'sm' ? 18 : 22} /> <span>Escolha sua cidade</span>
+  </summary>
+  <ul>
+    {
+      pracas.map((p) =>
+        cidadesDaPraca(p).map((c) => (
+          <li>
+            <a href={destinoDaCidade(c)}>
+              {c.nome} <small>{c.uf}</small>
+            </a>
+          </li>
+        )),
+      )
+    }
+  </ul>
+</details>

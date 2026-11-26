@@ -1,0 +1,74 @@
+---
+import '@fontsource-variable/inter/wght.css';
+import '@fontsource/barlow-condensed/latin-700.css';
+import '@fontsource/barlow-condensed/latin-800.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatCta from '../components/FloatCta.astro';
+import GoogleTag from '../components/GoogleTag.astro';
+import { site, SITE_URL } from '../data/site';
+import { localBusinessSchema } from '../data/schema';
+import type { Cidade } from '../data/cidades';
+
+interface Props {
+  title: string;
+  description: string;
+  // Cidade da página: define o telefone do cabeçalho, do rodapé, dos botões e do JSON-LD.
+  // Sem cidade, a página mostra o seletor "Escolha sua cidade".
+  cidade?: Cidade;
+  // Nome do bairro e do serviço, para a mensagem do WhatsApp e o JSON-LD
+  bairro?: string;
+  servico?: string;
+  // Blocos JSON-LD extras da página (FAQ, breadcrumb, serviço, artigo)
+  schema?: object[];
+  // true só nas páginas que listam os telefones de todas as praças (início e contato)
+  listaPracas?: boolean;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const { title, description, cidade, bairro, servico, schema = [], listaPracas = false, ogType = 'website', noindex = false } = Astro.props;
+// Canonical sempre no domínio do astro.config (nunca .vercel.app)
+const canonical = new URL(Astro.url.pathname, SITE_URL + '/').href;
+const ogImage = new URL('/og.jpg', SITE_URL + '/').href;
+const jsonLd = [localBusinessSchema(cidade, bairro, listaPracas), ...schema];
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#073448" />
+    {cidade && <meta name="geo.region" content={`BR-${cidade.uf}`} />}
+    {cidade && <meta name="geo.placename" content={bairro ? `${bairro}, ${cidade.nome}` : cidade.nome} />}
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {jsonLd.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+    <GoogleTag />
+  </head>
+  <body data-cidade={cidade?.nome}>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <Header cidade={cidade} bairro={bairro} servico={servico} />
+    <main id="conteudo">
+      <slot />
+    </main>
+    <Footer cidade={cidade} bairro={bairro} servico={servico} />
+    <FloatCta cidade={cidade} bairro={bairro} servico={servico} />
+  </body>
+</html>

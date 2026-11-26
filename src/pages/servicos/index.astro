@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaButtons from '../../components/CtaButtons.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import { marca, site } from '../../data/site';
+import { servicos } from '../../data/servicos';
+import { breadcrumbSchema, serviceSchema } from '../../data/schema';
+
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Serviços', path: '/servicos/' },
+];
+---
+
+<Base
+  title="Serviços de Desentupimento 24 Horas | Desentupidora SOS"
+  description="Desentupimento de pia, ralo, vaso sanitário, cano, esgoto, coluna de prédio e rede pluvial, limpeza de caixa de gordura e hidrojateamento. 24 horas."
+  schema={[serviceSchema({ nome: 'Serviços de desentupimento', descricao: site.description }), breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="eyebrow">{marca.horario}</span>
+      <h1>Serviços de desentupimento</h1>
+      <p class="hero-lead">Trabalhamos só com desentupimento, em casas, apartamentos, condomínios, lojas, restaurantes e empresas. <strong>{marca.chegada}.</strong></p>
+      <CtaButtons />
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container">
+      <div class="services-grid">
+        {servicos.map((s) => <ServiceCard servico={s} />)}
+      </div>
+    </div>
+  </section>
+  <CtaBand />
+</Base>

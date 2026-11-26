@@ -1,0 +1,14 @@
+---
+// Faixa de diferenciais: as quatro mensagens fixas da marca.
+import Icon from './Icon.astro';
+import { marca } from '../data/site';
+---
+
+<section class="trust" aria-label="Diferenciais">
+  <div class="container trust-grid">
+    <div class="trust-item"><Icon name="bolt" size={34} /><div><strong>{marca.chegada}</strong><span>Você chama e a equipe sai na hora</span></div></div>
+    <div class="trust-item"><Icon name="clock" size={34} /><div><strong>{marca.horario}</strong><span>{marca.horarioDetalhe}</span></div></div>
+    <div class="trust-item"><Icon name="shield" size={34} /><div><strong>{marca.emergencia}</strong><span>Vaso transbordando, esgoto voltando, pia parada</span></div></div>
+    <div class="trust-item"><Icon name="check" size={34} /><div><strong>Residencial e comercial</strong><span>{marca.publicoDetalhe}</span></div></div>
+  </div>
+</section>

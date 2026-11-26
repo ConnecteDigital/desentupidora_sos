@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { marca } from '../data/site';
+import { pracas } from '../data/pracas';
+import { cidadesDaPraca } from '../data/cidades';
+import { bairrosPorRegiao } from '../data/bairros';
+import { cidadePath, bairroPath } from '../data/rotas';
+import { breadcrumbSchema } from '../data/schema';
+
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Área de atendimento', path: '/area-de-atendimento/' },
+];
+---
+
+<Base
+  title="Área de Atendimento: Cidades e Bairros | Desentupidora SOS"
+  description="Cidades e bairros atendidos pela Desentupidora SOS no Rio de Janeiro, Espírito Santo, Petrópolis, Cuiabá, Juiz de Fora e João Pessoa. 24 horas."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="eyebrow">Área de atendimento</span>
+      <h1>Cidades e bairros atendidos</h1>
+      <p class="hero-lead">Escolha sua cidade para ver o telefone da equipe da sua região. <strong>{marca.chegada}.</strong></p>
+      <CtaButtons />
+    </div>
+  </section>
+
+  {
+    pracas.map((p, i) => (
+      <section class:list={['section', { 'section-soft': i % 2 === 0 }]}>
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Praça</span>
+            <h2>{p.nome}</h2>
+          </div>
+          {cidadesDaPraca(p).map((c) =>
+            c.publicada ? (
+              <>
+                <p><a class="btn btn-accent btn-md" href={cidadePath(c)}>Desentupidora {c.em} <Icon name="arrow" size={18} /></a></p>
+                <div class="zones zones-wide">
+                  {bairrosPorRegiao(c.slug, c.regioes).map((g) => (
+                    <div class="zone">
+                      <h3>{g.regiao}</h3>
+                      <ul>
+                        {g.bairros.map((b) => (
+                          <li><a href={bairroPath(b)}><Icon name="pin" size={16} /> {b.nome}</a></li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p><a class="btn btn-accent btn-md" href={`/contato/#${p.slug}`}>{c.nome}/{c.uf}: ver telefone <Icon name="arrow" size={18} /></a></p>
+            ),
+          )}
+        </div>
+      </section>
+    ))
+  }
+  <CtaBand />
+</Base>

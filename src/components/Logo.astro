@@ -1,0 +1,26 @@
+---
+// Logo da marca. Coloque o arquivo em src/assets/logo-sos.png e ele passa a ser usado
+// automaticamente. Enquanto o arquivo não existir, aparece o nome em texto.
+import { Image } from 'astro:assets';
+import { site } from '../data/site';
+
+interface Props {
+  width?: number;
+  eager?: boolean;
+}
+
+const { width = 150, eager = false } = Astro.props;
+const arquivos = import.meta.glob<{ default: ImageMetadata }>('../assets/logo-sos.{png,webp,svg,jpg}', { eager: true });
+const logo = Object.values(arquivos)[0]?.default;
+---
+
+{
+  logo ? (
+    <Image src={logo} alt={site.name} width={width} loading={eager ? 'eager' : 'lazy'} />
+  ) : (
+    <span class="wordmark">
+      <span class="wordmark-top">Desentupidora</span>
+      <span class="wordmark-sos">SOS</span>
+    </span>
+  )
+}
