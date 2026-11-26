@@ -21,9 +21,9 @@ export const marca = {
   publicoDetalhe: 'Casas, apartamentos, condomínios, lojas, restaurantes e empresas',
 };
 
-// ---- Tag do Google (conversões) ----
-// Deixe vazio enquanto os valores não forem informados: sem valor, nada é carregado.
-// GOOGLE_TAG_ID: ex. "AW-123456789". Rótulos: o trecho depois da barra em "AW-123456789/AbCdEf".
-export const GOOGLE_TAG_ID = '';
-export const ROTULO_CONVERSAO_WHATSAPP = '';
-export const ROTULO_CONVERSAO_LIGACAO = '';
+// ---- Tag do Google Ads (conversões) ----
+// A mesma tag vale para o site inteiro, em todas as cidades.
+// Rótulo = o trecho depois da barra em "AW-781093794/XXXXXXXX".
+export const GOOGLE_TAG_ID = 'AW-781093794';
+export const ROTULO_CONVERSAO_WHATSAPP = 'GJQDCLWQo8ADEKKXuvQC';
+export const ROTULO_CONVERSAO_LIGACAO = 'Dcw7CN7vq7EDEKKXuvQC';
