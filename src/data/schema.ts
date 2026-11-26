@@ -24,6 +24,7 @@ export function localBusinessSchema(cidade?: Cidade, bairro?: string, comContato
     '@type': 'Plumber',
     '@id': businessId(cidade),
     name: site.name,
+    logo: abs('/logo.png'),
     image: abs('/og.jpg'),
     description: site.description,
     openingHoursSpecification: horario,

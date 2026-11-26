@@ -1,22 +1,25 @@
 ---
-// Logo da marca. Coloque o arquivo em src/assets/logo-sos.png e ele passa a ser usado
-// automaticamente. Enquanto o arquivo não existir, aparece o nome em texto.
+// Logo da marca, usada como está.
+// "branca": versão para fundo escuro (cabeçalho). "cor": versão colorida com fundo claro (rodapé).
+// Arquivos: src/assets/logo-sos-branco.png e src/assets/logo-sos.png.
 import { Image } from 'astro:assets';
 import { site } from '../data/site';
 
 interface Props {
+  variante?: 'branca' | 'cor';
   width?: number;
   eager?: boolean;
 }
 
-const { width = 150, eager = false } = Astro.props;
-const arquivos = import.meta.glob<{ default: ImageMetadata }>('../assets/logo-sos.{png,webp,svg,jpg}', { eager: true });
-const logo = Object.values(arquivos)[0]?.default;
+const { variante = 'branca', width = 110, eager = false } = Astro.props;
+const arquivos = import.meta.glob<{ default: ImageMetadata }>('../assets/logo-sos*.{png,webp,svg}', { eager: true });
+const achar = (nome: string) => Object.entries(arquivos).find(([c]) => c.includes(`/${nome}.`))?.[1].default;
+const logo = variante === 'branca' ? (achar('logo-sos-branco') ?? achar('logo-sos')) : (achar('logo-sos') ?? achar('logo-sos-branco'));
 ---
 
 {
   logo ? (
-    <Image src={logo} alt={site.name} width={width} loading={eager ? 'eager' : 'lazy'} />
+    <Image class={`logo logo-${variante}`} src={logo} alt={site.name} width={width} densities={[1, 2]} loading={eager ? 'eager' : 'lazy'} />
   ) : (
     <span class="wordmark">
       <span class="wordmark-top">Desentupidora</span>

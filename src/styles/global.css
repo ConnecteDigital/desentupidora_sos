@@ -3,10 +3,10 @@
   --petrol-950: #04222f;
   --petrol-900: #073448;
   --petrol-800: #0a4663;
-  --brand: #0b5a82;
+  --brand: #00527a;
   --brand-500: #0f6f9f;
   --brand-400: #3aa0cf;
-  --accent: #f26a1b;
+  --accent: #f07020;
   --accent-hover: #ff7d33;
   --accent-soft: #ff9a57;
   --gray: #6b6b6b;
@@ -386,8 +386,9 @@ body:has(.nav-mobile[open]) .float-cta { display: none; }
 .wordmark-sos { font-weight: 800; font-size: 2.1rem; letter-spacing: .02em; color: var(--accent); margin-top: -1px; }
 .footer-brand .wordmark { margin-bottom: 14px; }
 .footer-brand .wordmark-sos { font-size: 2.6rem; }
-.brand img { width: 150px; }
-@media (max-width: 480px) { .brand img { width: 118px; } .wordmark-sos { font-size: 1.8rem; } }
+.brand img { width: 104px; height: auto; }
+@media (max-width: 480px) { .brand img { width: 88px; } .wordmark-sos { font-size: 1.8rem; } }
+.footer-brand img.logo-cor { width: 150px; border-radius: 12px; }
 .topbar a.topbar-phone { text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 480px) { .topbar-inner > span { font-size: .78rem; } }
 
@@ -467,7 +468,7 @@ body:has(.nav-mobile[open]) .float-cta { display: none; }
 /* fotos (aparecem quando o arquivo existe em src/assets/fotos/) */
 .hero-home.has-bg { isolation: isolate; }
 .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; z-index: -2; }
-.hero-home.has-bg::before { display: block; content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(4, 34, 47, .86) 0%, rgba(4, 34, 47, .8) 45%, rgba(4, 34, 47, .94) 100%); }
+.hero-home.has-bg::before { display: block; content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(4, 34, 47, .8) 0%, rgba(4, 34, 47, .72) 45%, rgba(4, 34, 47, .92) 100%); }
 .service-card.has-photo { padding-top: 0; overflow: hidden; }
 .service-photo { display: block; margin: 0 -24px; aspect-ratio: 4 / 3; overflow: hidden; background: var(--bg-soft); }
 .service-photo img { width: 100%; height: 100%; object-fit: cover; }

@@ -17,7 +17,5 @@ automaticamente; enquanto o arquivo não existir, o bloco aparece sem foto.
 | `limpeza-de-caixa-de-gordura` | idem |
 | `hidrojateamento` | idem |
 
-A logo vai em `src/assets/logo-sos.png` (uma pasta acima).
-
-Atenção: nenhuma foto pode mostrar telefone diferente do da praça (ex.: 0800 em uniforme ou
-carro) nem citar serviço que a SOS não oferece no site.
+As logos ficam uma pasta acima: `logo-sos-branco.png` (cabeçalho, fundo escuro) e `logo-sos.png` (rodapé).
+A pasta `extras/` guarda fotos enviadas que não estão em uso.

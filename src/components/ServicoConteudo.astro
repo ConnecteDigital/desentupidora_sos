@@ -13,7 +13,9 @@ interface Props {
   faq: Faq[];
 }
 const { servico, cidade, faq } = Astro.props;
-const img = foto(servico.slug);
+const fotoServico = foto(servico.slug);
+// fotos pequenas ficam só no card; na página entram as de 800px ou mais
+const img = fotoServico && fotoServico.width >= 800 ? fotoServico : undefined;
 const nota = cidade?.notasServico?.[servico.slug];
 ---
 
