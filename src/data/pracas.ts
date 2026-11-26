@@ -16,7 +16,7 @@ export const pracas: Praca[] = [
   { slug: 'espirito-santo', nome: 'Espírito Santo', phoneDigits: '5527997149978', local: 'Grande Vitória (ES)' },
   { slug: 'petropolis', nome: 'Petrópolis', phoneDigits: '5524999190828' },
   { slug: 'cuiaba', nome: 'Cuiabá', phoneDigits: '5565999197435' },
-  { slug: 'juiz-de-fora', nome: 'Juiz de Fora', phoneDigits: '5532998134217' },
+  { slug: 'juiz-de-fora', nome: 'Juiz de Fora', phoneDigits: '5532998551328' },
   { slug: 'joao-pessoa', nome: 'João Pessoa', phoneDigits: '5583991358502' },
 ];
 

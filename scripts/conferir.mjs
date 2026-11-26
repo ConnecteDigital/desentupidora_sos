@@ -11,7 +11,7 @@ const PRACAS = {
   'espirito-santo': '5527997149978',
   petropolis: '5524999190828',
   cuiaba: '5565999197435',
-  'juiz-de-fora': '5532998134217',
+  'juiz-de-fora': '5532998551328',
   'joao-pessoa': '5583991358502',
 };
 const CIDADE_PRACA = {
