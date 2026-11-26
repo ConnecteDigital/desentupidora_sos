@@ -1,6 +1,8 @@
 ---
 // Corpo da página de serviço (usado na versão geral e na versão por cidade).
+import { Image } from 'astro:assets';
 import FaqList from './FaqList.astro';
+import { foto } from '../data/fotos';
 import { marca } from '../data/site';
 import type { Faq, Servico } from '../data/servicos';
 import type { Cidade } from '../data/cidades';
@@ -11,11 +13,17 @@ interface Props {
   faq: Faq[];
 }
 const { servico, cidade, faq } = Astro.props;
+const img = foto(servico.slug);
 const nota = cidade?.notasServico?.[servico.slug];
 ---
 
 {servico.intro.map((p) => <p>{p}</p>)}
 {nota && <p>{nota}</p>}
+{img && (
+  <figure class="service-figure">
+    <Image src={img} alt={`${servico.nome}: serviço da Desentupidora SOS`} widths={[480, 800, 1100]} sizes="(max-width: 960px) 100vw, 760px" />
+  </figure>
+)}
 
 <h2>Quando chamar a desentupidora</h2>
 <ul>{servico.sinais.map((s) => <li>{s}</li>)}</ul>

@@ -2,9 +2,9 @@
 import { servicos } from './servicos';
 import { cidadesPublicadas } from './cidades';
 import { bairrosDaCidade } from './bairros';
-import { cidadePath, bairroPath, servicoCidadePath, servicoPath } from './rotas';
+import { cidadePath, bairroPath, servicoCidadePath, servicoPath, blogCidadePath, postCidadePath } from './rotas';
 
-export function gruposDoSitemap(posts: string[] = []): { grupo: string; paths: string[] }[] {
+export function gruposDoSitemap(posts: string[] = [], postsCidades: string[] = []): { grupo: string; paths: string[] }[] {
   const geral = [
     '/',
     '/servicos/',
@@ -22,6 +22,8 @@ export function gruposDoSitemap(posts: string[] = []): { grupo: string; paths: s
       cidadePath(c),
       ...servicos.map((s) => servicoCidadePath(c, s)),
       ...bairrosDaCidade(c.slug).map(bairroPath),
+      blogCidadePath(c),
+      ...postsCidades.filter((id) => id.startsWith(c.slug + '/')).map(postCidadePath),
     ],
   }));
   return [{ grupo: 'geral', paths: geral }, ...porCidade];

@@ -6,7 +6,7 @@ import { marca } from '../data/site';
 import { servicos } from '../data/servicos';
 import { phoneDisplay, telHref } from '../data/pracas';
 import { cidades, pracaDaCidade, destinoDaCidade, whatsDaCidade, type Cidade } from '../data/cidades';
-import { cidadePath, servicoCidadePath, servicoPath } from '../data/rotas';
+import { cidadePath, servicoCidadePath, servicoPath, blogCidadePath } from '../data/rotas';
 
 interface Props {
   cidade?: Cidade;
@@ -18,6 +18,7 @@ const { cidade, bairro, servico } = Astro.props;
 const praca = cidade ? pracaDaCidade(cidade) : undefined;
 const hrefServico = (s: (typeof servicos)[number]) => (cidade ? servicoCidadePath(cidade, s) : servicoPath(s));
 const hrefServicos = cidade ? `${cidadePath(cidade)}#servicos` : '/servicos/';
+const blog = cidade ? blogCidadePath(cidade) : '/blog/';
 const home = cidade ? cidadePath(cidade) : '/';
 ---
 
@@ -62,7 +63,7 @@ const home = cidade ? cidadePath(cidade) : '/';
         </div>
       </div>
       {cidade && <div class="nav-item"><a href={`${cidadePath(cidade)}#bairros`}>Bairros</a></div>}
-      <div class="nav-item"><a href="/blog/">Blog</a></div>
+      <div class="nav-item"><a href={blog}>Blog</a></div>
       <div class="nav-item"><a href="/sobre/">Sobre</a></div>
       <div class="nav-item"><a href="/contato/">Contato</a></div>
     </nav>
@@ -98,7 +99,7 @@ const home = cidade ? cidadePath(cidade) : '/';
             </ul>
           </details>
           {cidade && <a href={`${cidadePath(cidade)}#bairros`}>Bairros {cidade.em}</a>}
-          <a href="/blog/">Blog</a>
+          <a href={blog}>Blog</a>
           <a href="/sobre/">Sobre</a>
           <a href="/contato/">Contato</a>
           {praca && <a href={telHref(praca)}><Icon name="phone" size={18} /> Ligar: {phoneDisplay(praca)}</a>}

@@ -1,0 +1,71 @@
+---
+// Blog da cidade: artigos locais, sempre com o telefone da praça.
+import Base from '../../../layouts/Base.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import CtaButtons from '../../../components/CtaButtons.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import { getCollection } from 'astro:content';
+import { marca } from '../../../data/site';
+import { cidadesPublicadas, type Cidade } from '../../../data/cidades';
+import { cidadePath, blogCidadePath, postCidadePath } from '../../../data/rotas';
+import { breadcrumbSchema } from '../../../data/schema';
+
+export function getStaticPaths() {
+  return cidadesPublicadas().map((cidade) => ({ params: { cidade: cidade.slug }, props: { cidade } }));
+}
+
+interface Props {
+  cidade: Cidade;
+}
+const { cidade } = Astro.props;
+const locais = (await getCollection('blogCidades'))
+  .filter((p) => p.id.startsWith(cidade.slug + '/'))
+  .sort((a, b) => b.data.data.getTime() - a.data.data.getTime());
+const gerais = (await getCollection('blog')).sort((a, b) => b.data.data.getTime() - a.data.data.getTime());
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: `Desentupidora ${cidade.em}`, path: cidadePath(cidade) },
+  { name: 'Blog', path: blogCidadePath(cidade) },
+];
+---
+
+<Base
+  title={`Blog de Desentupimento ${cidade.em} | Desentupidora SOS`}
+  description={`Artigos sobre entupimento ${cidade.em}: causas mais comuns nos imóveis da cidade, o que fazer na hora e quando chamar a desentupidora.`}
+  cidade={cidade}
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="eyebrow">Blog · {cidade.nome}/{cidade.uf}</span>
+      <h1>Dicas sobre entupimento {cidade.em}</h1>
+      <p class="hero-lead">Conteúdo escrito para a realidade dos imóveis {cidade.em}. <strong>{marca.chegada}.</strong></p>
+      <CtaButtons cidade={cidade} />
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container">
+      <div class="posts">
+        {locais.map((p) => (
+          <a class="post-card" href={postCidadePath(p.id)}>
+            <h2>{p.data.titulo}</h2>
+            <p>{p.data.descricao}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Mais conteúdo</span>
+        <h2>Guias gerais sobre entupimento</h2>
+      </div>
+      <ul class="chips">
+        {gerais.map((p) => <li><a href={`/blog/${p.id}/`}>{p.data.titulo}</a></li>)}
+      </ul>
+    </div>
+  </section>
+  <CtaBand cidade={cidade} />
+</Base>

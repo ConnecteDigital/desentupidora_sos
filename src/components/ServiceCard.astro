@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
+import { foto } from '../data/fotos';
 import type { Servico } from '../data/servicos';
 import type { Cidade } from '../data/cidades';
 import { servicoCidadePath, servicoPath } from '../data/rotas';
@@ -11,10 +13,16 @@ interface Props {
 }
 
 const { servico, cidade } = Astro.props;
+const img = foto(servico.slug);
 const href = cidade ? servicoCidadePath(cidade, servico) : servicoPath(servico);
 ---
 
-<a class="service-card" href={href}>
+<a class:list={['service-card', { 'has-photo': img }]} href={href}>
+  {img && (
+    <span class="service-photo">
+      <Image src={img} alt={`${servico.nome}: serviço da Desentupidora SOS`} widths={[320, 480, 640]} sizes="(max-width: 600px) 100vw, 300px" />
+    </span>
+  )}
   <span class="service-icon"><Icon name={servico.icon} size={28} /></span>
   <h3>{servico.nome}</h3>
   <p>{servico.resumo}</p>

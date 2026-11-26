@@ -12,4 +12,15 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+// Blog de cada cidade: src/content/blog-cidades/<slug-da-cidade>/<artigo>.md
+const blogCidades = defineCollection({
+  loader: glob({ pattern: '*/*.md', base: './src/content/blog-cidades' }),
+  schema: z.object({
+    titulo: z.string(),
+    descricao: z.string(),
+    data: z.coerce.date(),
+    servico: z.string().optional(),
+  }),
+});
+
+export const collections = { blog, blogCidades };

@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
+import { foto } from '../data/fotos';
 import { marca } from '../data/site';
 import type { Cidade } from '../data/cidades';
 
@@ -7,10 +9,17 @@ interface Props {
   cidade?: Cidade;
 }
 const { cidade } = Astro.props;
+const img = foto('equipe');
 ---
 
 <section class="section">
-  <div class="container">
+  <div class:list={['container', { 'about-grid': img }]}>
+    {img && (
+      <div class="about-photo">
+        <Image src={img} alt="Técnico da Desentupidora SOS em atendimento" widths={[400, 600, 800]} sizes="(max-width: 900px) 100vw, 460px" />
+      </div>
+    )}
+    <div>
     <div class="section-head">
       <span class="eyebrow">Por que a SOS</span>
       <h2>Desentupidora para a hora do aperto</h2>
@@ -33,6 +42,7 @@ const { cidade } = Astro.props;
         <Icon name="check" size={30} />
         <div><h3>{marca.publico}</h3><p>{marca.publicoDetalhe}.</p></div>
       </div>
+    </div>
     </div>
   </div>
 </section>

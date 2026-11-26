@@ -1,5 +1,7 @@
 ---
 // Página da cidade: destino dos anúncios. Mostra SOMENTE o telefone da praça.
+import { Image } from 'astro:assets';
+import { foto } from '../../data/fotos';
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaButtons from '../../components/CtaButtons.astro';
@@ -15,7 +17,8 @@ import { servicos } from '../../data/servicos';
 import { phoneDisplay } from '../../data/pracas';
 import { cidadesPublicadas, pracaDaCidade, type Cidade } from '../../data/cidades';
 import { bairrosPorRegiao, bairrosDaCidade } from '../../data/bairros';
-import { cidadePath, bairroPath } from '../../data/rotas';
+import { cidadePath, bairroPath, blogCidadePath, postCidadePath } from '../../data/rotas';
+import { getCollection } from 'astro:content';
 import { faqSchema, breadcrumbSchema, serviceSchema } from '../../data/schema';
 
 export function getStaticPaths() {
@@ -37,6 +40,8 @@ const crumbs = [
   { name: `Desentupidora ${cidade.em}`, path: cidadePath(cidade) },
 ];
 const descricao = `Desentupidora 24 horas ${cidade.em}: pia, ralo, vaso, esgoto, coluna, caixa de gordura e hidrojateamento. Chegamos em 20 minutos. Ligue ${fone}.`;
+const heroImg = foto('hero');
+const posts = (await getCollection('blogCidades')).filter((p) => p.id.startsWith(cidade.slug + '/'));
 ---
 
 <Base
@@ -49,7 +54,8 @@ const descricao = `Desentupidora 24 horas ${cidade.em}: pia, ralo, vaso, esgoto,
     breadcrumbSchema(crumbs),
   ]}
 >
-  <section class="hero hero-home">
+  <section class:list={['hero', 'hero-home', { 'has-bg': heroImg }]}>
+    {heroImg && <Image class="hero-bg" src={heroImg} alt="" widths={[480, 800, 1200, 1600]} sizes="100vw" loading="eager" fetchpriority="high" />}
     <div class="container hero-center">
       <Breadcrumbs items={crumbs} />
       <span class="eyebrow">{cidade.nome}/{cidade.uf} · {marca.emergencia}</span>
@@ -108,6 +114,28 @@ const descricao = `Desentupidora 24 horas ${cidade.em}: pia, ralo, vaso, esgoto,
               </div>
             ))}
           </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    posts.length > 0 && (
+      <section class="section section-soft">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Blog</span>
+            <h2>Entupimento {cidade.em}: o que saber</h2>
+          </div>
+          <div class="posts">
+            {posts.map((p) => (
+              <a class="post-card" href={postCidadePath(p.id)}>
+                <h3>{p.data.titulo}</h3>
+                <p>{p.data.descricao}</p>
+              </a>
+            ))}
+          </div>
+          <p style="margin-top:20px"><a href={blogCidadePath(cidade)}>Ver o blog {cidade.em}</a></p>
         </div>
       </section>
     )

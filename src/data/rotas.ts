@@ -8,3 +8,9 @@ export const bairroPath = (b: Pick<Bairro, 'cidade' | 'slug'>) => `/desentupidor
 export const servicoCidadePath = (c: Pick<Cidade, 'slug'>, s: Pick<Servico, 'slug'>) =>
   `/desentupidora-em-${c.slug}/servicos/${s.slug}/`;
 export const servicoPath = (s: Pick<Servico, 'slug'>) => `/servicos/${s.slug}/`;
+export const blogCidadePath = (c: Pick<Cidade, 'slug'>) => `/desentupidora-em-${c.slug}/blog/`;
+// id do artigo = "<slug-da-cidade>/<artigo>"
+export const postCidadePath = (id: string) => {
+  const [cidade, post] = id.split('/');
+  return `/desentupidora-em-${cidade}/blog/${post}/`;
+};

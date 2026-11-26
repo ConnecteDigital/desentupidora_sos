@@ -6,7 +6,8 @@ import { SITE_URL } from '../data/site';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).map((p) => p.id);
-  return gruposDoSitemap(posts).map((g) => ({ params: { grupo: g.grupo }, props: { paths: g.paths } }));
+  const locais = (await getCollection('blogCidades')).map((p) => p.id);
+  return gruposDoSitemap(posts, locais).map((g) => ({ params: { grupo: g.grupo }, props: { paths: g.paths } }));
 }
 
 export const GET: APIRoute = ({ props }) => {

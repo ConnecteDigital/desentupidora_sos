@@ -24,7 +24,10 @@ export interface Cidade {
   notasServico?: Record<string, string>;
 }
 
-export const cidades: Cidade[] = [
+// Conteúdo de uma cidade, escrito em src/data/cidades/<slug>.ts
+export type CidadeConteudo = Required<Pick<Cidade, 'regioes' | 'intro' | 'faq' | 'notasServico'>>;
+
+const base: Cidade[] = [
   {
     slug: 'rio-de-janeiro',
     nome: 'Rio de Janeiro',
@@ -93,6 +96,14 @@ export const cidades: Cidade[] = [
   { slug: 'juiz-de-fora', nome: 'Juiz de Fora', uf: 'MG', em: 'em Juiz de Fora', praca: 'juiz-de-fora', publicada: false },
   { slug: 'joao-pessoa', nome: 'João Pessoa', uf: 'PB', em: 'em João Pessoa', praca: 'joao-pessoa', publicada: false },
 ];
+
+// Conteúdo das cidades em src/data/cidades/<slug>.ts (arquivo novo entra sozinho e publica a cidade).
+const conteudos = import.meta.glob<{ conteudo: CidadeConteudo }>('./cidades/*.ts', { eager: true });
+
+export const cidades: Cidade[] = base.map((c) => {
+  const extra = conteudos[`./cidades/${c.slug}.ts`]?.conteudo;
+  return extra ? { ...c, ...extra, publicada: true } : c;
+});
 
 export const cidadesPublicadas = () => cidades.filter((c) => c.publicada);
 

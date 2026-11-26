@@ -1,7 +1,6 @@
-// Bairros de todas as cidades. Os registros ficam em src/data/bairros/<cidade>.ts.
+// Bairros de todas as cidades. Os registros ficam em src/data/bairros/<slug-da-cidade>.ts.
 // Para adicionar um bairro: inclua um registro no arquivo da cidade. A página é criada sozinha.
 import type { Faq } from './servicos';
-import { rioDeJaneiro } from './bairros/rio-de-janeiro';
 
 // O que se escreve em cada registro
 export interface BairroDados {
@@ -48,9 +47,17 @@ export function slugify(texto: string) {
 const daCidade = (cidade: string, lista: BairroDados[]): Bairro[] =>
   lista.map((b) => ({ ...b, cidade, slug: b.slug ?? slugify(b.nome) }));
 
-export const bairros: Bairro[] = [
-  ...daCidade('rio-de-janeiro', rioDeJaneiro),
-];
+// Cada arquivo src/data/bairros/<slug-da-cidade>.ts exporta a lista de bairros da cidade.
+// O nome do arquivo é o slug da cidade; arquivo novo entra sozinho.
+const arquivos = import.meta.glob<Record<string, BairroDados[]>>('./bairros/*.ts', { eager: true });
+
+export const bairros: Bairro[] = Object.entries(arquivos)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .flatMap(([arquivo, modulo]) => {
+    const cidade = arquivo.replace('./bairros/', '').replace('.ts', '');
+    const lista = Object.values(modulo).find(Array.isArray) ?? [];
+    return daCidade(cidade, lista);
+  });
 
 export const bairrosDaCidade = (cidade: string) => bairros.filter((b) => b.cidade === cidade);
 

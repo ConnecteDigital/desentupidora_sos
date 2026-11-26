@@ -5,7 +5,7 @@ import { site, marca } from '../data/site';
 import { servicos } from '../data/servicos';
 import { phoneDisplay, telHref } from '../data/pracas';
 import { cidades, pracaDaCidade, destinoDaCidade, whatsDaCidade, type Cidade } from '../data/cidades';
-import { cidadePath, servicoCidadePath, servicoPath } from '../data/rotas';
+import { cidadePath, servicoCidadePath, servicoPath, blogCidadePath } from '../data/rotas';
 
 interface Props {
   cidade?: Cidade;
@@ -57,7 +57,7 @@ const year = new Date().getFullYear();
         {cidade && <li><a href={`${cidadePath(cidade)}#bairros`}>Bairros atendidos {cidade.em}</a></li>}
         <li><a href="/area-de-atendimento/">Área de atendimento</a></li>
         <li><a href="/servicos/">Todos os serviços</a></li>
-        <li><a href="/blog/">Blog</a></li>
+        <li><a href={cidade ? blogCidadePath(cidade) : '/blog/'}>Blog{cidade ? ` ${cidade.em}` : ''}</a></li>
         <li><a href="/sobre/">Sobre</a></li>
         <li><a href="/contato/">Contato</a></li>
         <li><a href="/politica-de-privacidade/">Política de privacidade</a></li>

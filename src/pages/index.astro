@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import { foto } from '../data/fotos';
 import Base from '../layouts/Base.astro';
 import CtaButtons from '../components/CtaButtons.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -47,6 +49,7 @@ const faq = [
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.data.getTime() - a.data.data.getTime()).slice(0, 3);
 const crumbs = [{ name: 'Início', path: '/' }];
+const heroImg = foto('hero');
 ---
 
 <Base
@@ -59,7 +62,8 @@ const crumbs = [{ name: 'Início', path: '/' }];
     breadcrumbSchema(crumbs),
   ]}
 >
-  <section class="hero hero-home">
+  <section class:list={['hero', 'hero-home', { 'has-bg': heroImg }]}>
+    {heroImg && <Image class="hero-bg" src={heroImg} alt="" widths={[480, 800, 1200, 1600]} sizes="100vw" loading="eager" fetchpriority="high" />}
     <div class="container hero-center">
       <span class="eyebrow">Desentupidora 24 horas · {marca.emergencia}</span>
       <h1>Desentupidora 24 horas: <em>chegamos em 20 minutos</em></h1>
