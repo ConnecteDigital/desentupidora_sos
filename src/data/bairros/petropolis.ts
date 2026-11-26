@@ -207,7 +207,7 @@ export const petropolis: BairroDados[] = [
     h1: 'Desentupidora no Saldanha Marinho para casas e condomínios',
     vizinhos: ['Centro', 'Castelânea', 'Floresta', 'Caxambu'],
     referencias: ['Rua Saldanha Marinho', 'Rua João Júlio Braun'],
-    imovel: 'Prédios residenciais de pequeno e médio porte e casas, a poucos minutos do Centro.',
+    imovel: 'Prédios residenciais de pequeno e médio porte e casas, perto do Centro.',
     problema:
       'Nos edifícios, a coluna de esgoto acumula crosta ao longo dos anos. O sinal aparece nos andares baixos: ralo do banheiro borbulhando e água subindo no box quando os apartamentos de cima usam o chuveiro.',
     servico: 'desentupimento-de-coluna',
@@ -491,7 +491,7 @@ export const petropolis: BairroDados[] = [
     h1: 'Desentupidora nas Duchas: ralo, pia e vaso',
     vizinhos: ['Centro', 'Mosela', 'Bingen', 'Quarteirão Brasileiro'],
     referencias: ['Rua Kopke', 'Rua Fagundes Varella', 'Rua Rodolfo Schaeffer'],
-    imovel: 'Casas, sobrados antigos e prédios pequenos, a poucos minutos do Centro Histórico.',
+    imovel: 'Casas, sobrados antigos e prédios pequenos, perto do Centro Histórico.',
     problema:
       'Banheiros de casas antigas têm caixa sifonada pequena e ramal de pouco diâmetro. Cabelo, sabonete e resíduos de produtos de limpeza formam uma massa que fecha o ralo do box.',
     servico: 'desentupimento-de-ralo',

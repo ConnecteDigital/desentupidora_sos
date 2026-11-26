@@ -45,7 +45,7 @@ export const conteudo: CidadeConteudo = {
     'desentupimento-de-esgoto':
       'Vila Velha é plana, e o esgoto dos imóveis corre com pouca queda. Em conjuntos de blocos baixos, como os de Coqueiral de Itaparica, e em casas ampliadas do Ibes, o retorno aparece primeiro no térreo.',
     'desentupimento-de-coluna':
-      'A orla de Vila Velha, em especial a Praia da Costa, tem os edifícios mais altos do Espírito Santo. Quanto mais andares na mesma prumada, mais gordura e sabão se acumulam na base da coluna.',
+      'A orla de Vila Velha, em especial a Praia da Costa, tem alguns dos edifícios mais altos do Espírito Santo. Quanto mais andares na mesma prumada, mais gordura e sabão se acumulam na base da coluna.',
     'desentupimento-de-rede-pluvial':
       'Vila Velha tem bairros em cota baixa, como Cobilândia, que alagam com chuva forte. Calhas, ralos e tubos de água de chuva desobstruídos fazem diferença para a água sair do imóvel.',
     'limpeza-de-caixa-de-gordura':

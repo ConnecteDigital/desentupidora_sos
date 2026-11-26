@@ -44,7 +44,7 @@ export const vitoria: BairroDados[] = [
       'Cozinhas de apartamentos com uso diário, muitas com pias ligadas a ramais longos, acumulam gordura e restos de comida no cano. A pia começa a escoar devagar e para de vez em um dia de mais uso.',
     servico: 'desentupimento-de-pia',
     abertura:
-      'Jardim Camburi é o bairro mais populoso de Vitória, com milhares de apartamentos entre a Avenida Dante Michelini e a Avenida Norte Sul. Onde mora muita gente, cozinha-se muito, e o pedido que mais recebemos no bairro é o de pia de cozinha parada.',
+      'Jardim Camburi é o bairro mais populoso de Vitória, com milhares de apartamentos entre a Avenida Dante Michelini e a Avenida Norte Sul. Onde mora muita gente, cozinha-se muito, e o problema mais comum é a pia de cozinha parada.',
     faq: [
       {
         q: 'A pia está lenta há semanas. Devo esperar entupir de vez para chamar?',

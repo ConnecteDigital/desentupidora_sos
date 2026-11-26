@@ -750,7 +750,7 @@ export const juizDeFora: BairroDados[] = [
       'Redes de empresas recebem resíduos que o uso doméstico não gera: graxa de oficina, areia de pátio, gordura de refeitório em grande volume. O material sedimenta em tubos de diâmetro maior e só é removido com jato de alta pressão.',
     servico: 'hidrojateamento',
     abertura:
-      'O Bairro Industrial fica na Zona Norte, entre a Avenida Presidente Juscelino Kubitschek e a Avenida Garcia Rodrigues Paes, e reúne galpões, oficinas e empresas de vários portes. Parada de banheiro ou de refeitório afeta o expediente inteiro, e o serviço mais pedido aqui é a lavagem de redes com hidrojato.',
+      'O Bairro Industrial fica na Zona Norte, entre a Avenida Presidente Juscelino Kubitschek e a Avenida Garcia Rodrigues Paes, e reúne galpões, oficinas e empresas de vários portes. Parada de banheiro ou de refeitório afeta o expediente inteiro, e o serviço mais indicado aqui é a lavagem de redes com hidrojato.',
     faq: [
       {
         q: 'Vocês fazem limpeza de rede de esgoto e de caixas em empresas?',
